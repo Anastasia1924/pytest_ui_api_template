@@ -23,8 +23,9 @@ class MainPage:
         elem_input.clear()
         elem_input.send_keys(name)
 
+    @allure.step("")
     def submit_search(self):
-        self._driver.find_element(By.CSS_SELECTOR, "button[type=submit]").click()
+        self._driver.find_element(By.CSS_SELECTOR, "a[data-tid='73187f6b']").click()
 
     def get_elements_result(self):
         elements = self._driver.find_element(By.CSS_SELECTOR, "")
@@ -38,7 +39,14 @@ class MainPage:
         self._driver.find_element(By.ID,"search").click()
 
     def get_film_name(self):
-        return self._driver.find_element(By.CSS_SELECTOR, ".filmName > span").getText()
+        return self._driver.find_element(By.CSS_SELECTOR, "li[data-index='0']").getText()
+
+    @allure.step("Оценить фильм")
+    def evaluate_the_film(self):
+        self._driver.find_element(By.CSS_SELECTOR, "a[data-tid='73187f6b']").click()
+        self._driver.find_element(By.CSS_SELECTOR, "button=Оценить фильм").click()
+        self._driver.find_element(By.CSS_SELECTOR, "button[aria-label='Оценка 10']").click()
+
 
 
 

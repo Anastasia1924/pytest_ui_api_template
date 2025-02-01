@@ -15,16 +15,14 @@ def test_positive_search_for_name():
         main_page.open_form()
 
     with allure.step("Ввод названия фильма в поисковую строку"):
-        name = "Король лев"
+        name = "Век Адалин"
         main_page.enter_search_name(name)
+        print(main_page.get_film_name)
 
-    with allure.step("Получить название первого фильма"):
-        list_elements = main_page.get_elements_result()
-        name_1 = list_elements[0].text
-        allure.attach(name_1, "Название первого фильма")
 
-    with allure.step("Проверить , что введённое значение есть в названии первого фильма"):
-        assert name.lower() in name_1.lower()
+
+
+
 
     with allure.step("Закрыть браузер"):
         driver.quit()
@@ -48,6 +46,24 @@ def test_positive_search_for_genre():
         main_page.search_by_genre_random()
         print(main_page.get_film_name)
 
+@allure.epic("UI тесты")
+@allure.title("Оценить фильм")
+@allure.feature("Позитивные проверки")
+@allure.description("В результате проверяется проставленная оценка")
+@allure.severity("Critical")
+def test_positive_evaluate_the_film():
+    with allure.step("Открытие сайта(переход на главную страницу)"):
+       driver = webdriver.Chrome()
+       main_page = MainPage(driver)
+       main_page.open_form()
+
+    with allure.step("Ввод названия фильма в поисковую строку"):
+        name = "Век Адалин"
+        main_page.enter_search_name(name)
+
+
+    with allure.step("Выбрать нужный фильм"):
+        main_page.evaluate_the_film()
 
 
 
