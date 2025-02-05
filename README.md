@@ -26,5 +26,5 @@
 - pytest.ini
 - .gitignore
 ## Инструкция по работе с проектом
-- Запуск тестов UI по команде: pytest -v --alluredir=allure-results tests\test_ui.py
-- Генерация отчета по команде: allure serve allure-results
+- Запуск тестов UI по команде: `pytest -v --alluredir=allure-results tests\test_ui.py`
+- Генерация отчета по команде: `allure serve allure-results`

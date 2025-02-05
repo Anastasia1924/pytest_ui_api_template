@@ -97,57 +97,28 @@ def test_rate_film(browser, film_title, film_id, rating):
         assert rating == 10, f"Ожидалось, что рейтинг будет 10, но получено: {rating}"
 
 
-
 # Добавить фильм в "буду смотреть".
 @allure.epic("UI тесты")
 @allure.title("Добавить фильм в ' Буду смотреть'")
 @allure.feature("Позитивные проверки")
 @allure.description("В результате проверяется")
 @allure.severity("Critical")
-@pytest.mark.parametrize("film_title, film_id", [("Фантомас", 47984)])
+@pytest.mark.parametrize("film_title", ["125jkhyf"])
 @pytest.mark.positive
-def test_rate_film(browser, film_title, film_id):
+def test_empty_search(browser, film_title):
     with allure.step("Переход на главную страницу)"):
         main_page = MainPage(browser)
         main_page.open_page(base_url)
 
-# 1. Ввести название фильма "Фантомас"
+# Ввести произвольный набор символов
     with allure.step("Ввод названия фильма в поисковую строку"):
         main_page.enter_search_name(film_title)
 
-# 2. Провалиться в найденный фильм.
-    with allure.step("Клик по первому названию"):
-        main_page.select_film(film_id)
+# Подтвердить поиск"
+    with allure.step("Подтверждение поиска"):
+        main_page.submit_search()
 
-# 3 Нажать на кнопку буду смотреть.
-    with allure.step("Клик на кнопку '+ Буду смотреть'"):
-        main_page.click_watch_button()
-
-# Проверить добавлен ли фильм в папку
-    with allure.step("Переход на страницу с папками"):
-        main_page.open_page(folder_url)
-        main_page.added_film_to_folder(film_id)
-        assert film_id == "film_47984"
-
-
-@allure.epic("UI тесты")
-@allure.title("Удалить фильм из папки ' Буду смотреть'")
-@allure.feature("Позитивные проверки")
-@allure.description("В результате проверяется")
-@allure.severity("Critical")
-@pytest.mark.parametrize("film_title, film_id", [("Фантомас", 47984)])
-@pytest.mark.positive
-def test_delete_film_from_folder(browser, film_title, film_id):
-    with allure.step("Переход на страницу с папками"):
-        main_page.open_page(folder_url)
-
-
-
-
-
-# Удалить фильм с папки  "буду смотреть ".
-# 1.На своей странице навести на иконку с фото профиля, нажать на "Фильмы".
-# 2. В папке " буду смотреть " поставить галочку (выбрать фильм).
-# 3. Нажать удалить.
-# 4. Проверить, что фильм удалён  или в этой папке нет фильма с таким названием.
-
+# Получение сообщения "К сожалению по вашему запросу ничего не найдено"
+    with allure.step("Подтверждение поиска"):
+        empty_message = main_page.get_empty_message()
+        assert empty_message == "К сожалению, по вашему запросу ничего не найдено..."

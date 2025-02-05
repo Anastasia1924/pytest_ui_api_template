@@ -90,6 +90,14 @@ class MainPage:
         )
         return film_title_element.text if film_title_element else None
 
+    @allure.step("Получение сообщения 'К сожалению по вашему запросу ничего не найдено'")
+    def get_empty_message(self):
+        empty_message = self.wait.until(
+            EC.presence_of_element_located((By.XPATH,"(//h2[@class='textorangebig'])[1]"))
+        )
+
+        return empty_message.text if empty_message else None
+
 
 
 
