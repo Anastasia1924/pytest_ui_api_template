@@ -26,7 +26,6 @@ def test_get_film_by_id():
     resp = api.get_film_by_id()
     json_film = resp.json()
     assert "Лорды раздевалки" == json_film['nameRu']
-    # проверки не знаю как сделать
 
 
 @allure.epic("API тесты")
@@ -39,8 +38,6 @@ def test_get_film_by_name():
     body = api.get_film_by_name()
     assert body.status_code == 200
 
-
-    # проверки не знаю как сделать
 
 @allure.epic("API тесты")
 @allure.title("Получение данных о наградах сериала 'Друзья'")
